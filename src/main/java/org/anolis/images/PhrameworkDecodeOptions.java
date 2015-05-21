@@ -19,7 +19,7 @@ class PhrameworkDecodeOptions {
 	 * @param width the target width of the final Bitmap
 	 * @param height the target height of the final Bitmap
 	 * @return the options with inSampleSize set to the scale
-	 * @throws org.axolotlinteractive.android.phillipphramework.error.RuntimeException if the bounds have not already been calculated or either the width and height are less then zero
+	 * @throws RuntimeException if the bounds have not already been calculated or either the width and height are less then zero
 	 */
 	static final BitmapFactory.Options getScaledOptions(BitmapFactory.Options boundsOptions, int width,int height){
 		if(boundsOptions.outHeight<=0||boundsOptions.outWidth<=0){
