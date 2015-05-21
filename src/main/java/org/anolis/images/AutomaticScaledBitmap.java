@@ -10,7 +10,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.axolotlinteractive.android.phillipphramework.PhrameworkApplication;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -33,7 +32,7 @@ public class AutomaticScaledBitmap {
 			throw new RuntimeException("Stored Bitmap did not exist");
 		return bm;
 	}
-	public static final Bitmap createFromResource(int id, int width,int height){
+	public static final Bitmap createFromResource(Context ctx, int id, int width,int height){
 		if(id==0){
 			throw new RuntimeException("Please pass in a valid resource id");
 		}
@@ -43,7 +42,7 @@ public class AutomaticScaledBitmap {
 		if(height==0){
 			throw new RuntimeException("Please pass in a height that is greater then 0");
 		}
-		Resources res=PhrameworkApplication.instance.getResources();
+		Resources res= ctx.getResources();
     	BitmapFactory.Options boundsOptions=new BitmapFactory.Options();
     	boundsOptions.inJustDecodeBounds=true;
 		BitmapFactory.decodeResource(res, id,boundsOptions);
@@ -65,14 +64,14 @@ public class AutomaticScaledBitmap {
 		return bm;
 	}
 	
-	public static final Bitmap createFromResourceExactSize(int id, int width, int height){
+	public static final Bitmap createFromResourceExactSize(Context ctx, int id, int width, int height){
 		if(id==0){
 			throw new RuntimeException("Please pass in a valid resource id");
 		}
 		if(width == 0 && height == 0){
 			throw new RuntimeException("Please pass in a width or height that is greater then 0");
 		}
-		Resources res=PhrameworkApplication.instance.getResources();
+		Resources res= ctx.getResources();
     	BitmapFactory.Options boundsOptions=new BitmapFactory.Options();
     	boundsOptions.inJustDecodeBounds=true;
 		BitmapFactory.decodeResource(res, id,boundsOptions);
@@ -225,13 +224,13 @@ public class AutomaticScaledBitmap {
 		File savedImage=new File(saveToFolder,imagePath+extension);
 		return saveImage(image,savedImage,format, true);
 	}
-	public static final String saveToCache(Bitmap image, CompressFormat format) throws IOException{
-		return saveToCache(image,format, true);
+	public static final String saveToCache(Context ctx, Bitmap image, CompressFormat format) throws IOException{
+		return saveToCache(ctx, image,format, true);
 	}
 	
-	public static final String saveToCache(Bitmap image, CompressFormat format, boolean destroy) throws IOException{
+	public static final String saveToCache(Context ctx, Bitmap image, CompressFormat format, boolean destroy) throws IOException{
 
-		File saveToFolder=PhrameworkApplication.instance.getCacheDir();
+		File saveToFolder= ctx.getCacheDir();
 		saveToFolder.mkdirs();
 
 		String imagePath=Long.toString(System.currentTimeMillis());
